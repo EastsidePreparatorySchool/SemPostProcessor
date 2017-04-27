@@ -1,0 +1,200 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package challenge_1;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXSlider;
+import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.control.Separator;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.StrokeType;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+
+/**
+ *
+ * @author cadenkeese
+ */
+public class FXMLDocumentController implements Initializable {
+
+    @FXML
+    private JFXHamburger ham1;
+    @FXML
+    private JFXDrawer toolbar;
+    @FXML
+    private StackPane container;
+    @FXML
+    private VBox menuContainer;
+    @FXML
+    private JFXDrawer panel;
+    @FXML
+    private JFXButton brightness;
+    
+    private VBox btn_container = new VBox();
+    private JFXButton btn_import = new JFXButton();
+    private JFXButton btn_export = new JFXButton();
+    private Separator btn_sep = new Separator();
+    
+   private VBox sideVContainer = new VBox();
+   private Text sideContainerTitle = new Text();
+   private Separator sideSeparator = new Separator();
+   private HBox sliderHBox = new HBox();
+   private MaterialDesignIconView sideSmallIcon = new MaterialDesignIconView();
+   private JFXSlider sideSlider = new JFXSlider();
+   private MaterialDesignIconView sideLargeIcon = new MaterialDesignIconView();
+    
+// <VBox prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+//   <children>
+//      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Brightness" wrappingWidth="162.4173583984375">
+//         <font>
+//            <Font name="Josefin Sans" size="40.0" />
+//         </font>
+//         <VBox.margin>
+//            <Insets bottom="8.0" left="10.0" right="10.0" top="10.0" />
+//         </VBox.margin>
+//      </Text>
+//      <Separator prefWidth="200.0" />
+//      <HBox prefHeight="40.0" prefWidth="200.0">
+//         <children>
+//            <MaterialDesignIconView glyphName="WHITE_BALANCE_SUNNY" size="20">
+//               <HBox.margin>
+//                  <Insets left="10.0" top="6.0" />
+//               </HBox.margin>
+//            </MaterialDesignIconView>
+//            <JFXSlider prefHeight="16.0" prefWidth="203.0">
+//               <HBox.margin>
+//                  <Insets bottom="5.0" left="15.0" top="5.0" />
+//               </HBox.margin>
+//            </JFXSlider>
+//            <MaterialDesignIconView glyphName="WHITE_BALANCE_SUNNY" size="30">
+//               <HBox.margin>
+//                  <Insets bottom="2.0" left="15.0" />
+//               </HBox.margin>
+//            </MaterialDesignIconView>
+//         </children>
+//         <VBox.margin>
+//            <Insets top="20.0" />
+//         </VBox.margin>
+//      </HBox>
+//   </children>
+//</VBox>   
+    
+    
+//    Insets(double top, double right, double bottom, double left)
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        btn_import.setText("Import");
+        btn_export.setText("Export");
+        btn_import.setPrefSize(100.0, 39.0);
+        btn_export.setPrefSize(100.0, 39.0);
+        btn_sep.setPrefWidth(200.0);
+        btn_container.getChildren().add(btn_import);
+        btn_container.getChildren().add(btn_sep);
+        btn_container.getChildren().add(btn_export);
+        toolbar.setSidePane(btn_container);
+        
+        sideLargeIcon.setGlyphName("WHITE_BALANCE_SUNNY");
+        sideLargeIcon.setGlyphSize(30);
+        HBox.setMargin(sideLargeIcon, new Insets(2,0,0,15));
+        
+        sideSlider.setPrefSize(203.0, 16.0);
+        sideSlider.setMin(-100);
+        sideSlider.setValue(0);
+        sideSlider.getStyleClass().add("jfx-slider-style");
+        HBox.setMargin(sideSlider, new Insets(5,0,5,15));
+        
+        sideSmallIcon.setGlyphName("WHITE_BALANCE_SUNNY");
+        sideSmallIcon.setGlyphSize(20);
+        HBox.setMargin(sideSmallIcon, new Insets(6,0,0,10));
+        
+        sliderHBox.setPrefSize(200, 40);
+        
+        sideSeparator.setPrefWidth(200.0);
+        
+        sideContainerTitle.setStrokeType(StrokeType.OUTSIDE);
+        sideContainerTitle.setStrokeWidth(0.0);
+        sideContainerTitle.setText("Brightness");
+        sideContainerTitle.setWrappingWidth(162.4173583984375);
+        sideContainerTitle.setFont(Font.font("Josefin Sans", 40.0));
+        VBox.setMargin(sideContainerTitle, new Insets(10,10,10,8));
+        
+        sideVContainer.setPrefWidth(300.0);
+        
+        panel.setDefaultDrawerSize(300.0);
+        
+        sliderHBox.getChildren().addAll(sideSmallIcon, sideSlider,sideLargeIcon);
+        
+        sideVContainer.getChildren().addAll(sideContainerTitle, sideSeparator, sliderHBox);
+        
+        
+        
+        HamburgerBasicCloseTransition burgerTask = new HamburgerBasicCloseTransition(ham1);
+        burgerTask.setRate(-1);
+        
+        
+        
+        
+        ham1.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+            burgerTask.setRate(burgerTask.getRate() * -1);
+            burgerTask.play();
+            ObservableList<Node> initList = container.getChildren();
+            //toolbar.setMaxSize(20.0, 20.0);
+            if (toolbar.isShown()) {
+                toolbar.close();
+                ObservableList<Node> list = container.getChildren();
+                Node temp = list.get(0);
+                list.remove(0);
+                list.add(temp);
+            } else {
+                ObservableList<Node> list = container.getChildren();
+                if(list.indexOf(menuContainer) == 0){
+                    Node temp = list.get(0);
+                    list.remove(0);
+                    list.add(temp);
+                }
+                toolbar.open();
+                
+            }
+
+        });
+        String panelType = "brightness";
+        panel.setSidePane(sideVContainer);
+        brightness.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+            if (!panel.isShown()){
+                panel.open();
+            }
+            if( !panelType.equals("brightness")){
+                sideContainerTitle.setText("Contrast");
+                sideLargeIcon.setGlyphName("WHITE_BALANCE_SUNNY");
+                sideSmallIcon.setGlyphName("WHITE_BALANCE_SUNNY");
+                panel.open();
+                //panelType = "brightness";
+            }
+        });
+//        contrast.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+//            if (!panel.isShown() || panelType.equals("brightness")){
+//                panel.open();
+//                "CONTRAST_CIRCLE"
+//            }
+//        });
+        
+
+    }
+
+}

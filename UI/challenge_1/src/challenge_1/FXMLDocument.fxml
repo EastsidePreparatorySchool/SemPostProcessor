@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane prefHeight="608.0" prefWidth="902.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="challenge_1.FXMLDocumentController">
+   <center>
+      <StackPane prefHeight="361.0" prefWidth="594.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="323.0" prefWidth="548.0">
+               <children>
+                  <ImageView fitHeight="296.0" fitWidth="454.0" layoutX="39.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <JFXDrawer fx:id="panel" direction="RIGHT" prefHeight="549.0" prefWidth="324.0" />
+         </children>
+      </StackPane>
+   </center>
+   <left>
+      <StackPane fx:id="container">
+         <children>
+             <VBox fx:id="menuContainer">
+               <children>
+                  <JFXDrawer fx:id="toolbar">
+ 
+                  </JFXDrawer>
+               </children>
+            </VBox>
+            <VBox prefHeight="549.0" prefWidth="54.0">
+               <children>
+                  <Separator opacity="0.0" prefHeight="11.0" prefWidth="56.0" />
+                  <JFXButton graphicTextGap="0.0" prefHeight="45.0" prefWidth="61.0" text=" ">
+                     <graphic>
+                        <MaterialDesignIconView glyphName="CROP_ROTATE" size="35" textAlignment="CENTER" />
+                     </graphic>
+                  </JFXButton>
+                  <Separator opacity="0.0" prefHeight="7.0" prefWidth="56.0" />
+                  <JFXButton graphicTextGap="0.0" prefHeight="45.0" prefWidth="61.0" text=" ">
+                     <graphic>
+                        <MaterialDesignIconView glyphName="PENCIL" size="35" textAlignment="CENTER" />
+                     </graphic>
+                  </JFXButton>
+                  <Separator opacity="0.0" prefHeight="10.0" prefWidth="56.0" />
+                  <JFXButton fx:id="brightness" graphicTextGap="0.0" prefHeight="45.0" prefWidth="61.0" text=" ">
+                     <graphic>
+                        <MaterialDesignIconView glyphName="WHITE_BALANCE_SUNNY" size="35" textAlignment="CENTER" />
+                     </graphic>
+                  </JFXButton>
+                  <Separator opacity="0.0" prefHeight="10.0" prefWidth="56.0" />
+                  <JFXButton graphicTextGap="0.0" layoutX="10.0" layoutY="100.0" prefHeight="45.0" prefWidth="61.0" text=" ">
+                     <graphic>
+                        <MaterialDesignIconView glyphName="CONTRAST_CIRCLE" size="35" textAlignment="CENTER" />
+                     </graphic>
+                  </JFXButton>
+                  <Separator opacity="0.0" prefHeight="10.0" prefWidth="56.0" />
+                  <JFXButton graphicTextGap="0.0" layoutX="10.0" layoutY="145.0" prefHeight="45.0" prefWidth="61.0" text=" ">
+                     <graphic>
+                        <MaterialDesignIconView glyphName="EXPORT" size="35" textAlignment="CENTER" wrappingWidth="38.1836051940918" />
+                     </graphic>
+                  </JFXButton>
+                  <Separator opacity="0.0" prefHeight="10.0" prefWidth="56.0" />
+                  <JFXButton graphicTextGap="0.0" prefHeight="45.0" prefWidth="61.0" text=" ">
+                     <graphic>
+                        <MaterialDesignIconView glyphName="TAG_TEXT_OUTLINE" size="35" textAlignment="CENTER" wrappingWidth="38.1836051940918" />
+                     </graphic>
+                  </JFXButton>
+                  <Separator opacity="0.0" prefHeight="10.0" prefWidth="56.0" />
+                  <JFXButton graphicTextGap="0.0" prefHeight="45.0" prefWidth="61.0" text=" ">
+                     <graphic>
+                        <MaterialDesignIconView glyphName="FORMAT_TEXT" size="35" textAlignment="CENTER" wrappingWidth="38.1836051940918" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+   </left>
+   <top>
+      <JFXToolbar BorderPane.alignment="CENTER">
+         <left>
+            <HBox BorderPane.alignment="CENTER">
+               <children>
+                  <JFXHamburger id="ham1" fx:id="ham1" prefHeight="29.0" prefWidth="50.0" stylesheets="@test.css" />
+                  <HBox alignment="TOP_RIGHT" prefHeight="47.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Separator opacity="0.0" prefHeight="45.0" prefWidth="205.0">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Separator>
+                              <HBox alignment="TOP_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="41.0" prefWidth="199.0">
+                                 <children>
+                                    <Text strokeWidth="0.0" text="SEM" textAlignment="CENTER" wrappingWidth="96.37000274658203">
+                                       <font>
+                                          <Font name="Josefin Sans Bold" size="46.0" />
+                                       </font>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="photo" wrappingWidth="101.21875">
+                                       <font>
+                                          <Font size="36.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </left>
+      </JFXToolbar>
+   </top>
+</BorderPane>
