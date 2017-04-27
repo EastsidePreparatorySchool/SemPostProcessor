@@ -1,0 +1,55 @@
+<!doctype html><html><head>
+
+  <title>Latest SEM photos</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+  <link rel="import" href="bower_components/neon-animation/neon-animated-pages.html">
+  <link rel="import" href="bower_components/neon-animation/neon-animations.html">
+  <link rel="import" href="bower_components/neon-animation/demo/reprojection/animated-grid.html">
+  <link rel="import" href="custom_components/fullsize-page-with-card.html">
+  <link rel="import" href="custom_components/styles.html">
+  <link rel="import" href="component/animated-grid.html">
+  <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
+
+  <style is="custom-style">
+  body {
+    overflow: hidden;
+    @apply(--layout-fullbleed);
+  }
+  neon-animated-pages {
+    height: 100%;
+  }
+  </style>
+
+</head>
+<body>
+
+  <template is="dom-bind">
+    <paper-toolbar>
+      <span class="title">Latest SEM photos</span>
+    </paper-toolbar>
+    <neon-animated-pages id="pages" selected="0">
+      <animated-grid on-tile-click="_onTileClick"></animated-grid>
+      <fullsize-page-with-card id="fullsize-card" on-click="_onFullsizeClick">
+      </fullsize-page-with-card>
+    </neon-animated-pages>
+  </template>
+
+  <script>
+    var scope = document.querySelector('template[is="dom-bind"]');
+    scope._onTileClick = function(event) {
+      this.$['fullsize-card'].color = event.detail.data.color;
+      this.$['fullsize-card'].photourl = event.detail.data.photourl;
+      this.$.pages.selected = 1;
+    };
+    scope._onFullsizeClick = function(event) {
+      this.$.pages.selected = 0;
+    };
+  </script>
+
+  </body>
+</html>

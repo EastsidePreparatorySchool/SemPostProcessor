@@ -1,0 +1,101 @@
+<html>
+  <head>
+  <title>SEM image upload</title>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=no">
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="bower_components/paper-material/paper-material.html">
+  <link rel="import" href="bower_components/paper-menu/paper-menu.html">
+  <link rel="import" href="bower_components/paper-item/paper-item.html">
+  <link rel="import" href="bower_components/paper-button/paper-button.html">
+  <link rel="import" href="bower_components/paper-styles/demo-pages.html">
+  <link rel="import" href="bower_components/paper-input/paper-input.html">
+  <link rel="import" href="bower_components/paper-slider/paper-slider.html">
+  <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+  <link rel="import" href="bower_components/iron-pages/iron-pages.html">
+  <link rel="import" href="bower_components/iron-icon/iron-icon.html">
+  <link rel="import" href="bower_components/iron-icons/iron-icons.html">
+  <link rel="import" href="bower_components/paper-styles/paper-styles.html">
+  <link rel="import" href="bower_components/neon-animation/neon-animated-pages.html">
+  <link rel="import" href="bower_components/neon-animation/neon-animatable.html">
+  <link rel="import" href="bower_components/neon-animation/neon-animations.html">
+  <link rel="import" href="bower_components/iron-image/iron-image.html">
+  <link rel="import" href="bower_components/iron-form/iron-form.html">
+  <link rel="import" href="bower_components/paper-toast/paper-toast.html">
+  </head>
+  <body unresolved>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #0d47a1;
+      padding: 20px;
+      text-align: center;
+    }
+    .card {
+      background: white;
+      max-width: 360px;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 2px;
+    }
+    .image-container {
+      margin-bottom: 0px;
+    }
+    .copy {
+      font-size: 16;
+      margin-bottom: 0px;
+    }
+    paper-input {
+      text-align: left;
+    }
+    .link {
+      text-decoration: none;
+    }
+    paper-button {
+      margin: 12px auto;
+      width: 100%;
+      color: white;
+      background: #2196f3;
+    }
+    #loginButton {
+      display: block;
+      background-color: #2196F3
+    }
+    #registerButton {
+      display: none;
+      background-color: #2196F3
+    }
+    #loginText {
+      display: none;
+    }
+    #registerText {
+      display: block;
+    }
+    #toast {
+      text-align: left;
+    }
+    #toastButton {
+      margin-left: 48px;
+      color: #2196f3;
+    }
+  </style>
+
+  <paper-material class="card" elevation="2">
+    <form action="{{uploadurl | safe}}"
+          enctype="multipart/form-data"
+          method="post">
+      <div><label>Manually upload a SEM image</label></div>
+      Specimen:<br>
+      <input type="text" name="specimen">
+      <br>
+      Magnification:<br>
+      <input type="number" name="magnification">
+      <br><br>
+      File:<br>
+      <div><input type="file" name="img"/></div>
+      <br><br>
+      <div><input type="submit" value="Submit image"></div>
+    </form>
+    <hr>
+  </paper-material>
+
+</body></html>
