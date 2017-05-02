@@ -22,8 +22,12 @@ public class Challenge_1 extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
 //        Scene scene1 = new Scene(root);
+         //vvvv adds border thing on window vvvv
         JFXDecorator decorator = new JFXDecorator(stage, root);
         decorator.setCustomMaximize(false);
+        
+        
+        
         Scene scene = new Scene(decorator);
         scene.getStylesheets().add("challenge_1/test.css");
         stage.setScene(scene);

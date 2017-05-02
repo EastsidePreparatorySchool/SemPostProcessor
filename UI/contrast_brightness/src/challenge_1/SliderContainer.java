@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
  *
  * @author cadenkeese
  */
+//this class was created as a wrpper for jfxslider so could store info relating to the slider being clicked
 public class SliderContainer extends JFXSlider {
     private Boolean isClicked = false;
     public void setClicked (Boolean clicked){

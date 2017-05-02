@@ -104,6 +104,7 @@ public class FXMLDocumentController implements Initializable {
    */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //init file export buttons
         btn_import.setText("Import");
         btn_export.setText("Export");
         btn_import.setPrefSize(100.0, 39.0);
@@ -112,16 +113,17 @@ public class FXMLDocumentController implements Initializable {
         btn_container.getChildren().addAll(btn_import, btn_sep, btn_export);
         toolbar.setSidePane(btn_container);
         
+        //right icon options
         sideLargeIcon.setGlyphName("WHITE_BALANCE_SUNNY");
         sideLargeIcon.setGlyphSize(30);
         HBox.setMargin(sideLargeIcon, new Insets(2,0,0,15));
-        
+        //slider options
         sideSlider.setPrefSize(203.0, 16.0);
         sideSlider.setMin(-100);
         sideSlider.setValue(0);
         sideSlider.getStyleClass().add("jfx-slider-style");
         HBox.setMargin(sideSlider, new Insets(10,0,5,15));
-        
+        //left icon options
         sideSmallIcon.setGlyphName("WHITE_BALANCE_SUNNY");
         sideSmallIcon.setGlyphSize(20);
         HBox.setMargin(sideSmallIcon, new Insets(8,0,0,10));
@@ -130,7 +132,8 @@ public class FXMLDocumentController implements Initializable {
         VBox.setMargin(sliderHBox, new Insets(25,0,0,0));
         
         sideSeparator.setPrefWidth(200.0);
-        
+       
+        //panel title options
         sideContainerTitle.setStrokeType(StrokeType.OUTSIDE);
         sideContainerTitle.setStrokeWidth(0.0);
         sideContainerTitle.setText("Brightness");
@@ -143,25 +146,27 @@ public class FXMLDocumentController implements Initializable {
    
         panel.setDefaultDrawerSize(300.0);
         sliderHBox.getChildren().addAll(sideSmallIcon, sideSlider,sideLargeIcon);
-        
+        //save button options adjusted
         save.setText("Save");
         save.setRipplerFill(Color.web("#ffdd71"));
         save.setStyle("-fx-background-color: #ffab40");
         BorderPane.setAlignment(save, Pos.CENTER_RIGHT);
         BorderPane.setMargin(save, new Insets(0,20,20,0));
-        
+       //build side panel
         sideVContainer.getChildren().addAll(sideContainerTitle, sideSeparator, sliderHBox, save);
         borderContainer.setTop(sideVContainer);
         borderContainer.setBottom(save);
         
+        //set sidepanel inner part
         panel.setSidePane(borderContainer);
         
+        //init hamburger icon button
         HamburgerBasicCloseTransition burgerTask = new HamburgerBasicCloseTransition(ham1);
         burgerTask.setRate(-1);
         
         
         
-        
+        // change the layer that the file and export buttons are on when hamburger is clicked
         ham1.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
             burgerTask.setRate(burgerTask.getRate() * -1);
             burgerTask.play();
@@ -191,9 +196,12 @@ public class FXMLDocumentController implements Initializable {
                 panel.open();
             }
             if(!sideContainerTitle.getText().equals("Brightness")){
+                //change text in panel
                 sideContainerTitle.setText("Brightness");
+                //change icons
                 sideLargeIcon.setGlyphName("WHITE_BALANCE_SUNNY");
                 sideSmallIcon.setGlyphName("WHITE_BALANCE_SUNNY");
+                //change defualts for slider
                 sideSlider.setMin(-100);
                 sideSlider.setValue(0);
                 panel.open();
@@ -213,10 +221,13 @@ public class FXMLDocumentController implements Initializable {
             }
             if(!sideContainerTitle.getText().equals("Contrast")){
                 sideContainerTitle.setText("Contrast");
+                //change icons
                 sideLargeIcon.setGlyphName("CONTRAST_CIRCLE");
                 sideSmallIcon.setGlyphName("CONTRAST_CIRCLE");
+                //change default and range for slider
                 sideSlider.setMin(0);
                 sideSlider.setValue(50);
+                //re open side panel
                 panel.open();
             }
         });
