@@ -1,2 +1,5 @@
 semphotogallery/bower_components/*
 *.pyc
+/UI/contrast_brightness/nbproject/private/
+/UI/contrast_brightness/dist/
+/UI/contrast_brightness/build/
