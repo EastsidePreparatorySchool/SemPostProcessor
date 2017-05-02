@@ -1,0 +1,32 @@
+First order of business:
+
+Seniors will not be present the 15th-19th, which means Gavin Uberti and Jackson Fellows will be the only ones in class of our group. 
+
+Gavin will be gone 5/2
+
+I have decided we will abandon KanbanFlow for now. People aren't updating to it, which is fine; it just means we should figure out another 
+way to keep track of stuff live that is easy for everyone.
+
+What was done this sprint:
+
+Calendar of the next month
+Metadata work
+/upload support
+Crop and rotate functionality
+UI:
+  fullscreen
+  toolbar
+  sliders for brightness and contrast
+  implementation (not for everything yet of course)
+
+Gavin, I took a look at your HTML code, I believe there's a JS link in there without a source in GitHub. If that could get uploaded that 
+would be great. Awesome job otherwise.
+
+Caden, excellent job with UI, especially contrast and brightness menus with sliders; fantastic start. However, I don't like the graying effect.
+Jackson, do you think it's possible so that when a menu comes out, like contrast or brightness, the image container shrinks? Right now 
+it seems like the menu will overlap a photo, which I don't think we want. If you can change that, it would greatly improve the feel. But, 
+if you have something more important to work on, don't let this distract you, we may be able to work around it.
+
+Still waiting to hear back from algorithms. We will talk in class tomorrow.
+
+-Logan
