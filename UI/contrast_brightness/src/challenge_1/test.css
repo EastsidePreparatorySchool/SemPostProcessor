@@ -1,0 +1,54 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 14, 2017, 11:47:46 PM
+    Author     : cadenkeese
+    modified from JFoenix demo stylesheet
+*/
+@font-face {
+    font-family: 'Josefin';
+    src:url('JosefinSans-Regular.ttf');
+}
+@font-face {
+    font-family:'Roboto';
+    src:url("Roboto-Regular.ttf");
+}
+
+
+/*.root{
+ -fx-font-family: "Roboto";
+}*/
+
+/*"Josefin"*/
+
+.jfx-slider-style {
+    -jfx-indicator-position: left;
+    /*indicator is now on bottom*/
+}
+
+.jfx-slider-style > .thumb {
+    -fx-background-color: #80d6ff 
+    /* color of dot and track left of dot*/ 
+}
+
+.jfx-slider-style .track {
+    -fx-background-color: #0077c2;
+    /*color of track right of dot*/
+    
+    -fx-pref-height: 4px;
+    -fx-pref-width: 4px;
+    /*^^ thickness of track */
+}
+
+.jfx-slider-style .slider-value {
+    -fx-stroke: #FFFFFF;
+    /*color of text in bubble*/
+    -fx-font-size: 12.0;
+    /*font size of text in bubble*/
+}
+.btn-save{
+    
+}
