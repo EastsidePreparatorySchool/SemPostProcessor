@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="SEMPostProcessor.jnlp">
+  <information>
+    <title>SEMPostProcessor</title>
+    <vendor>jfellows</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="SEMPostProcessor.jar" size="2591928" download="eager" />
+    <jar href="lib/fontawesomefx-commons-8.15.jar" size="20957" download="eager" />
+    <jar href="lib/fontawesomefx-controls-8.15.jar" size="3369" download="eager" />
+    <jar href="lib/fontawesomefx-materialdesignfont-1.7.22-4.jar" size="197373" download="eager" />
+    <jar href="lib/fontawesomefx-materialicons-2.2.0-5.jar" size="103686" download="eager" />
+    <jar href="lib/fontawesomefx-materialstackicons-2.1-5.jar" size="62640" download="eager" />
+    <jar href="lib/jfoenix.jar" size="2359643" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="SEMPostProcessor" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="SEMPostProcessor.Main"  name="SEMPostProcessor" />
+  <update check="always"/>
+</jnlp>
