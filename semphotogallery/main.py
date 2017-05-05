@@ -59,13 +59,7 @@ class LatestHandler(webapp2.RequestHandler):
         }
         self.response.out.write(template.render(template_values))
 
-class PhotoUploader(blobstore_handlers.BlobstoreUploadHandler):
-
-    def clone_entity(e):
-        # Code from http://bit.ly/1o64d4a
-        klass = e.__class__
-        props = dict((v._code_name, v.__get__(e, klass)) for v in klass._properties.itervalues() if type(v) is not ndb.ComputedProperty)
-        return klass(**props)
+class PhotoUploader(blobstore_handlers.BlobstoreUploadHandler, BaseHandler):
 
     def get(self):
         template = JINJA_ENVIRONMENT.get_template('html/upload.html')
@@ -75,21 +69,25 @@ class PhotoUploader(blobstore_handlers.BlobstoreUploadHandler):
         self.response.out.write(template.render(template_values))
 
     def post(self):
+        logging.info("Recieved an upload")
         upload = self.get_uploads()[0]
 
         if not self.request.get('modified_from'):
+            logging.info("Created a new entry in DB")
             photo_obj = Photo(photokeys=[upload.key()])
             photo_obj.notes = self.request.get('notes')
         else:
+            logging.info("Updated entry in DB")
             photo_obj = self.getDBObj(self.request.get('modified_from'))
 
-            if not self.request.get('copy'):
-                photo_obj = clone_entity(self.getDBObj(self.request.get('modified_from')))
+            if self.request.get('copy'):
+                photo_obj = self.clone_entity(self.getDBObj(self.request.get('modified_from')))
 
             photo_obj.photokeys.append(upload.key())
             photo_obj.last_updated = datetime.datetime.now()
 
         if bool(self.request.get('update_metadata')):
+            logging.info("Metadata updated")
             photo_obj.populate(
                 magnification=int(self.request.get('magnification')),
                 voltage=int(self.request.get('voltage')),
@@ -98,18 +96,32 @@ class PhotoUploader(blobstore_handlers.BlobstoreUploadHandler):
 
         logging.info("Photo data recieved: " + str(upload.key()))
         photo_obj.put()
+        self.response.write(str(upload.key()))
 
-class RetrieveMetadataHandler(webapp2.RequestHandler):
+    def clone_entity(self, e):
+        # Code from http://bit.ly/1o64d4a
+        klass = e.__class__
+        props = dict((v._code_name, v.__get__(e, klass)) for v in klass._properties.itervalues() if type(v) is not ndb.ComputedProperty)
+        return klass(**props)
+
+class RetrieveMetadataHandler(BaseHandler):
     def get(self, str_id):
         obj = self.getDBObj(str_id)
 
         dump = {}
 
-        props = ['date_taken', 'last_updated', 'magnification', 'voltage', 'notes', 'specimen', 'scale', 'photokeys']
+        props = ['magnification', 'voltage', 'notes', 'specimen', 'scale']
         for prop in props:
             dump[prop] = getattr(obj, prop)
 
-        return json.dumps(dump)
+        dts = ['date_taken', 'last_updated']
+        for d in dts:
+            try:
+                dump[prop] = getattr(obj, prop).isoformat()
+            except AttributeError:
+                dump[prop] = None
+
+        self.response.write(json.dumps(dump))
 
 class APIURLRetrieveHandler(webapp2.RequestHandler):
     def get(self):
@@ -117,6 +129,7 @@ class APIURLRetrieveHandler(webapp2.RequestHandler):
 
 class ImageHandler(blobstore_handlers.BlobstoreDownloadHandler):
     def get(self, str_id):
+        logging.info("String ID is " + str_id)
         obj = self.getDBObj(str_id)
 
         if not obj:
@@ -124,9 +137,12 @@ class ImageHandler(blobstore_handlers.BlobstoreDownloadHandler):
 
         index = -1
 
-        if self.get("revision_num"):
-            index = self.get("revision_num")
+        if self.request.get("revision_num"):
+            index = int(self.request.get("revision_num"))
+            logging.info("Revision num specified, it was " + str(index))
+            logging.info("The length of photokeys is " + str(len(obj.photokeys)))
             if index > len(obj.photokeys):
+                logging.info("Opps! Your index was too long")
                 self.error(400)
                 return
 
@@ -142,7 +158,7 @@ class ImageHandler(blobstore_handlers.BlobstoreDownloadHandler):
         return db_obj
 
 class AdjustableComponentHandler(BaseHandler):
-    def get(self, file):
+    def get(self, file):    
         if file == "animated-grid.html":
             items_to_preload = 10
             arr = []
@@ -168,5 +184,6 @@ app = webapp2.WSGIApplication([
     ('/upload', PhotoUploader),
     ('/image/([\w\-=]+)', ImageHandler),
     ('/component/([\w\-.=]+)', AdjustableComponentHandler),
-    ('/geturl', APIURLRetrieveHandler)
+    ('/geturl', APIURLRetrieveHandler),
+    ('/metadata/([\w\-.=]+)', RetrieveMetadataHandler)
 ], debug=True)
