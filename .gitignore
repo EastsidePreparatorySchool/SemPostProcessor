@@ -7,3 +7,13 @@ semphotogallery/bower_components/*
 /sem/build/
 /sem/dist/
 /brightness_contrast/nbproject/private/
+/main_app/SEMPostProcessor/build/
+/main_app/SEMPostProcessor/nbproject/
+/main_app/SEMPostProcessor/dist/
+\UI\contrast_brightness\nbproject\private\
+\UI\contrast_brightness\dist\
+\UI\contrast_brightness\build\
+\main_app\SEMPostProcessor\build\
+\main_app\SEMPostProcessor\nbproject\
+\main_app\SEMPostProcessor\dist\
+
