@@ -16,9 +16,19 @@ import javafx.stage.Stage;
  * @author jfellows
  */
 public class Main extends Application {
+    private static Stage stage;
+    
+     private void setStage(Stage stage) {
+        Main.stage = stage;
+    }
+
+    static public Stage getStage() {
+        return Main.stage;
+    }
     
     @Override
     public void start(Stage stage) throws Exception {  
+        setStage(stage);
         Parent root = FXMLLoader.load(getClass().getResource("layout.fxml"));
 
         Scene scene = new Scene(root);
@@ -32,8 +42,9 @@ public class Main extends Application {
     }
 
     /**
-     * @param args the command line arguments
+     * @return 
      */
+    
     public static void main(String[] args) {
         launch(args);
     }

@@ -101,18 +101,18 @@ public class BCPanel extends BorderPane {
         }
             VBox.setMargin(sliderHBox, new Insets(25, 0, 0, 0));
             //sets width of slider that separates text from slier
-            sideSeparator.setPrefWidth(200.0);
+            sideSeparator.setMinWidth(200.0);
             //panel title options
             setTitleOptions(this.type, Font.font("Josefin Sans", 40.0), new Insets(10, 10, 10, 8));
         
         //save button options adjusted
         setSaveButtonOptions("Save", "#ffdd71", "#ffab40", Pos.CENTER_RIGHT, new Insets(0, 20, 20, 0));
         //build side panel
-        sliderHBox.setPrefSize(200, 40);
+        sliderHBox.setMinSize(200, 40);
         sliderHBox.getChildren().addAll(sideSmallIcon, sideSlider, sideLargeIcon);
 
         sideVContainer.getChildren().addAll(sideContainerTitle, sideSeparator, sliderHBox, save);
-        sideVContainer.setPrefSize(300.0, 80.0);
+        sideVContainer.setMinSize(300.0, 80.0);
         this.setTop(sideVContainer);
         this.setBottom(save);
         //SETTING HANDLERS
@@ -147,7 +147,7 @@ public class BCPanel extends BorderPane {
     }
 
     private void setSliderOptions(double width, double height, double min, double max, double initValue, Insets margin) {
-        sideSlider.setPrefSize(width, height);
+        sideSlider.setMinSize(width, height);
         sideSlider.setMax(max);
         sideSlider.setMin(min);
         sideSlider.setValue(initValue);
@@ -170,7 +170,7 @@ public class BCPanel extends BorderPane {
         save.setRipplerFill(Color.web(rippleColorHex));
         save.setStyle("-fx-background-color: " + backgroundColorHex);
         save.setFont(Font.font(15));
-        save.setPrefSize(100, 40);
+        save.setMinSize(100, 40);
         BorderPane.setAlignment(save, position);
         BorderPane.setMargin(save, margin);
     }
