@@ -14,17 +14,17 @@
         <Screen fx:factory="getPrimary" fx:id="screen" />
     </fx:define>
     <center>
-        <VBox alignment="CENTER">
+        <VBox alignment="CENTER" fx:id="center">
             <padding>
                 <Insets top="10" right="10" bottom="50" left="10"/>
             </padding>
-            <ImageView fx:id="image_view" BorderPane.alignment="CENTER" preserveRatio="true">
+            <ImageView fx:id="image_view" BorderPane.alignment="CENTER" preserveRatio="true" fitHeight="${screen.visualBounds.height*2/3}">
                 <Image url="@http://ichef.bbci.co.uk/wwfeatures/wm/live/1280_640/images/live/p0/15/nh/p015nh19.jpg"/>
             </ImageView>
         </VBox>
     </center>
     <left>
-        <VBox BorderPane.alignment="CENTER" spacing="10">
+        <VBox BorderPane.alignment="CENTER" spacing="10" fx:id="left">
             <padding>
                 <Insets top="20" right="20" bottom="0" left="5"/>
             </padding>
@@ -53,8 +53,7 @@
         </VBox>
     </left>
     <right>
-        <StackPane fx:id="right">
-            
+        <StackPane fx:id="right"  minWidth="${screen.visualBounds.width*1/5}">
         </StackPane>
     </right>
     <top>
