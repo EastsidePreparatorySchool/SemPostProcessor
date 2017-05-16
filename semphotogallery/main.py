@@ -95,14 +95,34 @@ class PhotoUploader(blobstore_handlers.BlobstoreUploadHandler, BaseHandler):
                 specimen=self.request.get('specimen'))
 
         logging.info("Photo data recieved: " + str(upload.key()))
-        photo_obj.put()
         self.response.write(str(upload.key()))
+        if not self.request.get('modified_from'):
+            self.create_icon(photo_obj)
+
+        photo_obj.put()
 
     def clone_entity(self, e):
-        # Code from http://bit.ly/1o64d4a
         klass = e.__class__
-        props = dict((v._code_name, v.__get__(e, klass)) for v in klass._properties.itervalues() if type(v) is not ndb.ComputedProperty)
+        props = dict((
+            v._code_name, v.__get__(e, klass)) for v in klass._properties.itervalues() if type(v) is not ndb.ComputedProperty)
         return klass(**props)
+
+    def create_icon(self, photo_obj):
+        k = photo_obj.photokeys[-1] # Latest blobkey
+        img = images.Image(blob_key=k)
+        img.resize(width=200)
+        img.im_feeling_lucky() # Just a fun line to add
+        thumbnail = img.execute_transforms(output_encoding=images.PNG)
+
+        photo_obj.icon = thumbnail
+
+class DeleteHandler(BaseHandler):
+    def post(self, str_id):
+        obj = self.getDBObj(str_id)
+        for key in obj.photokeys:
+            blobstore.delete(key)
+
+        ndb.Key(Photo, int(str_id)).delete()
 
 class RetrieveMetadataHandler(BaseHandler):
     def get(self, str_id):
@@ -133,8 +153,16 @@ class ImageHandler(blobstore_handlers.BlobstoreDownloadHandler):
         obj = self.getDBObj(str_id)
 
         if not obj:
+            self.error(404)
             return
 
+        if not self.request.get("full_size"): # If we should return icon
+            logging.info("Returned icon")
+            self.response.write(obj.icon)
+            self.response.headers['Content-Type'] = 'image/jpeg'
+            return
+
+        logging.info("Returning full image")
         index = -1
 
         if self.request.get("revision_num"):
@@ -185,5 +213,6 @@ app = webapp2.WSGIApplication([
     ('/image/([\w\-=]+)', ImageHandler),
     ('/component/([\w\-.=]+)', AdjustableComponentHandler),
     ('/geturl', APIURLRetrieveHandler),
-    ('/metadata/([\w\-.=]+)', RetrieveMetadataHandler)
+    ('/metadata/([\w\-.=]+)', RetrieveMetadataHandler),
+    ('/delete/([\w\-.=]+)', DeleteHandler)
 ], debug=True)
