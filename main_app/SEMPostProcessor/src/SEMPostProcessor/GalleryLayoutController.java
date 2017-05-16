@@ -5,16 +5,15 @@
  */
 package SEMPostProcessor;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -26,8 +25,14 @@ public class GalleryLayoutController implements Initializable {
     @FXML
     TilePane tile_pane;
 
+    @FXML
+    HBox image_details;
+
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -41,10 +46,13 @@ public class GalleryLayoutController implements Initializable {
     private ImageView createTile(final Image image) {
         int DEFAULT_THUMBNAIL_WIDTH = 300;
 
-        ImageView imageView = null;
-        imageView = new ImageView(image);
+        ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
         imageView.setFitWidth(DEFAULT_THUMBNAIL_WIDTH);
+
+        imageView.setOnMouseClicked((e) -> {
+            image_details.getChildren().setAll(new Text(imageView.toString())); // demonstrating that I can alter the image detail area when an image is selected
+        });
 
         return imageView;
     }
