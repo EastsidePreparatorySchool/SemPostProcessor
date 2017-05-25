@@ -16,7 +16,8 @@ import javax.imageio.ImageIO;
  */
 
 public class Main {
-    
+    private String appleAddress = "/";
+    private String windiwsAddress = "";
     public static void main(String[] args) {
         Main main = new Main();
         Brightness bright = new Brightness();

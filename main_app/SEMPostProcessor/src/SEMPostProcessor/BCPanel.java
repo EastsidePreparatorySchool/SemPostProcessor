@@ -5,11 +5,18 @@
  */
 package SEMPostProcessor;
 
+import SEMPostProcessor.resources.Brightness;
 import com.jfoenix.controls.*;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
+import java.awt.image.BufferedImage;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Separator;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -80,8 +87,11 @@ public class BCPanel extends BorderPane {
     private MaterialDesignIconView sideSmallIcon = new MaterialDesignIconView();
     private JFXSlider sideSlider = new JFXSlider();
     private MaterialDesignIconView sideLargeIcon = new MaterialDesignIconView();
-    private JFXButton save = new JFXButton();
+    public JFXButton save = new JFXButton();
     private String type;
+    private BufferedImage img;
+    private ImageView imgView;
+    private BCeventHandle handler = new BCeventHandle();
     //VVV call this at controller initialization VVV
 
     public void init() {
@@ -92,7 +102,7 @@ public class BCPanel extends BorderPane {
             setSmallIconOptions("WHITE_BALANCE_SUNNY", new Insets(8, 0, 0, 10));
 
             //slider options
-            setSliderOptions(203.0, 16.0, -100, 100, 0, new Insets(10, 0, 5, 15));
+            setSliderOptions(203.0, 16.0, 0, 100, 50, new Insets(10, 0, 5, 15));
         } else if (this.type.equals("Contrast")) {
             setLargeIconOptions("CONTRAST_CIRCLE", new Insets(2, 0, 0, 15));
             setSmallIconOptions("CONTRAST_CIRCLE", new Insets(8, 0, 0, 10));
@@ -123,9 +133,7 @@ public class BCPanel extends BorderPane {
         sideSlider.valueProperty().addListener((ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
         });
          */
-        save.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
-            System.out.println(sideContainerTitle.getText() + ": " + sideSlider.getValue());
-        });
+        
     }
 
     public BCPanel(String type) {
@@ -174,5 +182,42 @@ public class BCPanel extends BorderPane {
         BorderPane.setAlignment(save, position);
         BorderPane.setMargin(save, margin);
     }
-
+    
+    public void setImageView(ImageView img){
+        handler.setImageView(img);
+    }
+    
+    public void setBufferedImage(BufferedImage img){
+        handler.setBufferedImage(img);
+    }
+   
+    public BufferedImage getBufferedImage(){
+        return handler.getBufferedImage();
+    }
+    
+    private class BCeventHandle implements EventHandler<MouseEvent>{
+            private BufferedImage img;
+             private ImageView imgView;
+            @Override
+            public void handle(MouseEvent e) {
+                BufferedImage changed = Brightness.changeBrightness(img,(int) Math.round(sideSlider.getValue()));
+                Image changedImg = SwingFXUtils.toFXImage(changed, null );
+                this.imgView.setImage(changedImg);
+                System.out.println(sideContainerTitle.getText() + ": " + sideSlider.getValue());
+            }
+            public void setBufferedImage(BufferedImage img){
+                this.img = img;
+            }
+            public BufferedImage getBufferedImage(){
+             return this.img;
+            }
+            public ImageView getImageView(){
+                return this.imgView;
+            }
+            public void setImageView(ImageView img){
+                this.imgView =  img;
+            }
+            
+     }
 }
+
